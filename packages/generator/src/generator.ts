@@ -15,7 +15,6 @@ generatorHandler({
     }
   },
   onGenerate: async (options: GeneratorOptions) => {
-    fs.writeFileSync('datamodel.json', JSON.stringify(options.dmmf.datamodel, null, 2), 'utf-8');
     const mermaid = genMermaid(options.dmmf.datamodel);
     await writeFileSafely(options.generator.output?.value!, mermaid)
   },

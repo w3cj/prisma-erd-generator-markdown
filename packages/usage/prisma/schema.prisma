@@ -1,5 +1,5 @@
 generator erd {
-  provider = "node ../../node_modules/prisma-generator-erd-md"
+  provider = "node ../../node_modules/prisma-erd-generator-markdown"
   output   = "./ERD.md"
 }
 

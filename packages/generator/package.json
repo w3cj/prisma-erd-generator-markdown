@@ -1,11 +1,11 @@
 {
   "name": "prisma-erd-generator-markdown",
   "description": "Generate an ERD in a markdown file from a prisma schema.",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "main": "dist/generator.js",
   "license": "MIT",
   "bin": {
-    "prisma-generator-erd-md": "dist/bin.js"
+    "prisma-erd-generator-markdown": "dist/bin.js"
   },
   "engines": {
     "node": ">=14.0"

@@ -1,1 +1,1 @@
-export const GENERATOR_NAME = 'prisma-generator-erd-md'
+export const GENERATOR_NAME = 'prisma-erd-generator-markdown'
