@@ -11,6 +11,11 @@ export default function genMermaid(datamodel: DMMF.Datamodel) {
   let mermaid = `erDiagram
 `;
     const relationships: (Relationship | string)[] = [];
+    const typeToDBName = new Map<string, string>();
+    datamodel.models.forEach(async (modelInfo) => {
+      const modelName = modelInfo.dbName || modelInfo.name;
+      typeToDBName.set(modelInfo.name, modelName);
+    });
     datamodel.models.forEach(async (modelInfo) => {
       const modelName = modelInfo.dbName || modelInfo.name;
       let modelDiagram = `\t${modelName} {\n`;
@@ -24,11 +29,11 @@ export default function genMermaid(datamodel: DMMF.Datamodel) {
         });
         if (!field.isList) {
           const fromFieldName = field.relationFromFields ? field.relationFromFields[0] : '';
-          const fromField = otherFields.find((f) => f.name === fromFieldName);
+          const fromField = otherFields.find((f) => f.name === fromFieldName || f.dbName === fromFieldName);
           const isUnique = fromField ? fromField.isUnique : false;
           const relationship: Relationship = {
             from: modelName,
-            to: field.type,
+            to: typeToDBName.get(field.type) || field.type,
             name: fieldName,
             arrow: isUnique ? '||--||' : '}o--||',
           };
@@ -59,7 +64,7 @@ export default function genMermaid(datamodel: DMMF.Datamodel) {
           const defaultValue = field.default ? `"${field.default}"` : '';
           const parts = [field.type, fieldName, defaultValue].filter((p) => p);
           modelDiagram += `\t\t${parts.join(' ')}\n`
-          let relationship = `\t${modelName} }o--|| ${field.type} : "enum:${fieldName}"\n`;
+          let relationship = `\t${modelName} }o--|| ${typeToDBName.get(field.type)} : "enum:${fieldName}"\n`;
           relationships.push(relationship);
         }
       })
