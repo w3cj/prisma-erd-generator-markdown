@@ -20,7 +20,7 @@
   "dependencies": {
     "@prisma/client": "4.11.0",
     "@prisma/generator-helper": "4.11.0",
-    "prettier": "2.8.4"
+    "prettier": "2.8.7"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.2",
